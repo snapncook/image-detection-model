@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package detection_proto;
+
+service DetectionService {
+    rpc YOLODetect (YOLODetectionRequest) returns (YOLODetectionResponse) {}
+}
+
+message YOLODetectionRequest {
+    bytes image = 1 [json_name = "image"];
+}
+
+message YOLODetectionResponse {
+    repeated string objects = 1 [json_name = "objects"];
+}
