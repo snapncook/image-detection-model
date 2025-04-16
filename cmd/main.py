@@ -18,6 +18,7 @@ from ultralytics import YOLO
 def save_bytes_as_image(image_bytes, file_path):
     image_stream = BytesIO(image_bytes)
     image = Image.open(image_stream)
+    image = image.convert('RGB')
     image.save(file_path)
 
 class YOLODetectionService(proto_grpc.DetectionService):
@@ -51,7 +52,7 @@ class YOLODetectionService(proto_grpc.DetectionService):
         path = 'image.jpg' 
         image = request.image
         save_bytes_as_image(image, path)
-
+        
         objs = self.detect(path)
         return proto.YOLODetectionResponse(objects=objs)
 
